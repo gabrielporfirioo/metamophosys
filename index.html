@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metamorphosys - Fábrica de Perfumes Caseira</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --light-gold: #F5E6B3;
+            --dark: #121212;
+            --darker: #0A0A0A;
+            --light: #F8F8F8;
+            --gray: #E5E5E5;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap');
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        p, a, button, input, textarea {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 0;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+
+        .logo img {
+            height: 50px;
+            margin-right: 15px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 40px;
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 400;
+            transition: var(--transition);
+            font-size: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        nav ul li a:hover {
+            color: var(--gold);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            background-color: var(--gold);
+            bottom: -5px;
+            left: 0;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 120px;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                        url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            color: var(--dark);
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--dark);
+            padding: 18px 45px;
+            border-radius: 0;
+            text-decoration: none;
+            font-weight: 400;
+            transition: var(--transition);
+            border: 1px solid var(--dark);
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            color: var(--light);
+            background-color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        .cta-button.gold {
+            background-color: var(--gold);
+            border-color: var(--gold);
+            color: var(--light);
+        }
+
+        .cta-button.gold:hover {
+            background-color: transparent;
+            color: var(--gold);
+        }
+
+        /* Machine Showcase */
+        .machine-showcase {
+            padding: 150px 0;
+            text-align: center;
+            background-color: var(--light);
+        }
+
+        .machine-showcase h2 {
+            font-size: 48px;
+            margin-bottom: 80px;
+            font-weight: 400;
+            position: relative;
+            display: inline-block;
+        }
+
+        .machine-showcase h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold);
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .machine-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 80px;
+        }
+
+        .machine-image {
+            flex: 1;
+            min-width: 400px;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .machine-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .machine-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--gold);
+            top: -20px;
+            left: -20px;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .machine-image:hover::before {
+            top: -15px;
+            left: -15px;
+        }
+
+        .machine-info {
+            flex: 1;
+            min-width: 400px;
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .machine-info h3 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .machine-info p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .tech-specs {
+            margin-top: 40px;
+        }
+
+        .tech-specs h4 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tech-specs ul {
+            list-style: none;
+        }
+
+        .tech-specs li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-specs i {
+            color: var(--gold);
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        /* Refill System */
+        .refill-system {
+            padding: 150px 0;
+            background-color: var(--light);
+            position: relative;
+        }
+
+        .refill-system::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .refill-system .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .refill-system h2 {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 80px;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .refill-system h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold);
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .refill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .refill-card {
+            background-color: var(--light);
+            padding: 50px 40px;
+            border-radius: 0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .refill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.03) 0%, rgba(0,0,0,0) 100%);
+            z-index: 0;
+        }
+
+        .refill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .refill-card i {
+            font-size: 40px;
+            color: var(--gold);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .refill-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .refill-card p {
+            font-size: 15px;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        /* Control System */
+        .control-system {
+            padding: 150px 0;
+            text-align: center;
+            background-color: var(--light);
+        }
+
+        .control-system h2 {
+            font-size: 48px;
+            margin-bottom: 80px;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .control-system h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold);
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .control-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .control-image {
+            flex: 1;
+            min-width: 400px;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .control-image img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .control-info {
+            flex: 1;
+            min-width: 400px;
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .control-info h3 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .control-info p {
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .control-steps {
+            margin-top: 40px;
+        }
+
+        .control-step {
+            display: flex;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background-color: var(--gold);
+            color: var(--light);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .step-content h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: 400;
+        }
+
+        .step-content p {
+            font-size: 14px;
+            margin-bottom: 0;
+            opacity: 0.8;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 150px 0;
+            background: url('https://images.unsplash.com/photo-1615634262411-c2b35ec5d413?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            position: relative;
+            color: var(--light);
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .testimonials .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 80px;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .testimonials h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold);
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 50px 40px;
+            border-radius: 0;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .testimonial-card .rating {
+            color: var(--gold);
+            margin-bottom: 25px;
+            font-size: 20px;
+        }
+
+        .testimonial-card p {
+            margin-bottom: 30px;
+            font-style: italic;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .testimonial-card .author {
+            font-weight: 400;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* About */
+        .about {
+            padding: 150px 0;
+            background-color: var(--light);
+        }
+
+        .about h2 {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 80px;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .about h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold);
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 400px;
+        }
+
+        .about-text h3 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .about-text p {
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 400px;
+            position: relative;
+            display: flex;
+        }
+
+        .about-image img {
+            width: 50%;
+            height: 300px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--gold);
+            top: -20px;
+            left: -20px;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .about-image:hover::before {
+            top: -15px;
+            left: -15px;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 150px 0;
+            background-color: var(--light);
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 80px;
+            font-weight: 400;
+            position: relative;
+        }
+
+        .contact h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold);
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 80px;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 400px;
+        }
+
+        .contact-info h3 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .contact-info p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info i {
+            color: var(--gold);
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 400;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            font-size: 16px;
+            background-color: transparent;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            height: 200px;
+            resize: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 100px 0 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            gap: 40px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 1px;
+            background-color: var(--gold);
+            bottom: -10px;
+            left: 0;
+        }
+
+        .footer-section p {
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul li a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--gold);
+            opacity: 1;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-icons a {
+            color: var(--light);
+            font-size: 18px;
+            transition: var(--transition);
+            opacity: 0.8;
+        }
+
+        .social-icons a:hover {
+            color: var(--gold);
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            font-size: 14px;
+            text-align: center;
+            opacity: 0.6;
+            letter-spacing: 0.5px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: var(--light);
+            margin: 5% auto;
+            padding: 60px;
+            border-radius: 0;
+            max-width: 700px;
+            position: relative;
+            animation: modalopen 0.6s;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Adicionar estilos para o preço */
+        .price-tag {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--dark);
+            margin: 30px 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .price-amount {
+            font-size: 42px;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .price-note {
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        .price-section {
+            background-color: rgba(212, 175, 55, 0.05);
+            padding: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        @keyframes modalopen {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 28px;
+            font-weight: 300;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close:hover {
+            color: var(--gold);
+        }
+
+        .modal h2 {
+            margin-bottom: 30px;
+            font-weight: 400;
+            font-size: 36px;
+            position: relative;
+        }
+
+        .modal h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 1px;
+            background-color: var(--gold);
+            bottom: -15px;
+            left: 0;
+        }
+
+        .modal p {
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* Responsivo */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .hero h1 {
+                font-size: 60px;
+            }
+            
+            .machine-container, .about-content, .control-container {
+                gap: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                height: auto;
+                padding: 20px 0;
+            }
+
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 10px 15px;
+            }
+
+            .hero {
+                padding: 150px 0 80px;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .machine-showcase h2,
+            .refill-system h2,
+            .control-system h2,
+            .testimonials h2,
+            .about h2,
+            .contact h2 {
+                font-size: 36px;
+                margin-bottom: 60px;
+            }
+
+            .machine-container, .about-content, .contact-container, .control-container {
+                flex-direction: column;
+            }
+
+            .machine-info, .about-text, .control-info {
+                text-align: center;
+            }
+
+            .machine-image, .about-image, .control-image {
+                min-width: 100%;
+            }
+
+            .modal-content {
+                padding: 40px 30px;
+                margin: 10% auto;
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .cta-button {
+                padding: 15px 30px;
+            }
+            
+            .refill-card, .testimonial-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Metamorphosys Logo" style="background: transparent;">
+                Metamorphosys
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#machine">A Máquina</a></li>
+                    <li><a href="#refill">Refis</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Atendimento</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Sua Fábrica de Perfumes Pessoal</h1>
+            <p>A revolucionária máquina Metamorphosys transforma sua casa em um ateliê de perfumaria. Com refis exclusivos e controle preciso, crie fragrâncias únicas com toque profissional.</p>
+            <a href="#machine" class="cta-button gold">Descubra Como Funciona</a>
+        </div>
+    </section>
+
+    <section class="machine-showcase" id="machine">
+        <div class="container">
+            <h2>A Máquina Metamorphosys</h2>
+            <div class="machine-container">
+                <div class="machine-image">
+                    <img src="produto.png" alt="Máquina Metamorphosys" style="background: transparent;">
+                </div>
+                <div class="machine-info">
+                    <h3>Tecnologia de Perfumaria em Casa</h3>
+                    <p>A máquina Metamorphosys é um sistema completo para criação de perfumes pessoais. Com design elegante e tecnologia precisa, ela mistura os refis de fragrâncias de acordo com suas preferências, criando combinações perfeitas.</p>
+                    
+                    <div class="price-tag">
+                        <div class="price-amount">R$ 3.200,00</div>
+                        <div class="price-note">Investimento em sofisticação e personalização</div>
+                    </div>
+
+                    <div class="tech-specs">
+                        <h4>Inclui:</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Máquina de fabricação de perfumes</li>
+                            <li><i class="fas fa-check"></i> Controle personalizado</li>
+                            <li><i class="fas fa-check"></i> Kit inicial com 6 refis de fragrâncias</li>
+                            <li><i class="fas fa-check"></i> Frascos de vidro soprado</li>
+                            <li><i class="fas fa-check"></i> Garantia premium de 2 anos</li>
+                        </ul>
+                    </div>
+
+                    <a href="#purchaseModal" class="cta-button gold" id="mainPurchaseButton">Adquirir Agora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [Manter todas as outras seções anteriores] -->
+
+   
+
+    <section class="refill-system" id="refill">
+        <div class="container">
+            <h2>Sistema de Refis Exclusivos</h2>
+            <div class="refill-grid">
+                <div class="refill-card">
+                    <i class="fas fa-wine-bottle"></i>
+                    <h3>Coleção Signature</h3>
+                    <p>Refis com as fragrâncias clássicas da perfumaria mundial, desenvolvidas por nossos mestres perfumistas em concentração premium.</p>
+                </div>
+                <div class="refill-card">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Linha Botânica</h3>
+                    <p>Ingredientes naturais e orgânicos, com óleos essenciais puros e absolutos raros para criações mais autênticas.</p>
+                </div>
+                <div class="refill-card">
+                    <i class="fas fa-gem"></i>
+                    <h3>Edição Limitada</h3>
+                    <p>Combinações exclusivas lançadas sazonalmente, inspiradas em destinos luxuosos e ingredientes extraordinários.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section class="testimonials">
+        <div class="container">
+            <h2>Quem Usa, Aprova</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Como perfumista amadora, a Metamorphosys trouxe a precisão que faltava em minhas criações caseiras. Agora consigo resultados profissionais com facilidade."</p>
+                    <div class="author">- Ana Beatriz, São Paulo</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Presente perfeito para minha esposa que adora perfumes. Ela cria uma fragrância diferente a cada semana e já formou sua coleção pessoal."</p>
+                    <div class="author">- Ricardo Monteiro, Rio de Janeiro</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Investimento que valeu cada centavo. Além da máquina ser linda como objeto de decoração, os refis têm qualidade excepcional."</p>
+                    <div class="author">- Camila Fontes, Belo Horizonte</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="container">
+            <h2>Sobre a Metamorphosys</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Revolucionando a Perfumaria Pessoal</h3>
+                    <p>Fundada em 2018 por engenheiros e perfumistas, a Metamorphosys nasceu da ideia de tornar a criação de fragrâncias acessível a todos, sem perder a sofisticação e precisão da perfumaria profissional.</p>
+                    <p>Nossa missão é empoderar indivíduos para que expressem sua identidade através de aromas únicos, com tecnologia que simplifica processos complexos.</p>
+                    <p>Com laboratórios em São Paulo e parcerias em Grasse, combinamos inovação tecnológica com tradição perfumista.</p>
+                    <a href="#contact" class="cta-button">Conheça Nossa História</a>
+                </div>
+                <div class="about-image">
+                    <img src="gui.jpg" alt="Equipe Metamorphosys">
+                    <img src="helo.jpg" alt="Equipe Metamorphosys">
+                    <img src="Lele.jpg" alt="Equipe Metamorphosys">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Atendimento Exclusivo</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Fale Conosco</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Brigadeiro Faria Lima, 2000 - São Paulo</p>
+                    <p><i class="fas fa-phone"></i> +55 (11) 98765-4321</p>
+                    <p><i class="fas fa-envelope"></i> concierge@Metamorphosys.com</p>
+                    <p><i class="fas fa-clock"></i> Segunda a Sexta: 9h-18h</p>
+                    <p><i class="fas fa-star"></i> Atendimento preferencial para clientes</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Como podemos ajudar?</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="cta-button gold">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Metamorphosys</h3>
+                    <p>Fábrica de Perfumes Pessoal</p>
+                    <p>© 2023 Metamorphosys. Todos os direitos reservados.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Produtos</h3>
+                    <ul>
+                        <li><a href="#machine">A Máquina</a></li>
+                        <li><a href="#refill">Refis</a></li>
+                        <li><a href="#control">Controle</a></li>
+                        <li><a href="#">Kits Presente</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Serviços</h3>
+                    <ul>
+                        <li><a href="#">Assinatura de Refis</a></li>
+                        <li><a href="#">Consultoria Olfativa</a></li>
+                        <li><a href="#">Manutenção Premium</a></li>
+                        <li><a href="#">Programa de Fidelidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Informações</h3>
+                    <ul>
+                        <li><a href="#">Termos e Condições</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Trocas e Devoluções</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Metamorphosys é uma marca registrada. Todas as tecnologias e designs são propriedade exclusiva.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Compra -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Adquira Sua Metamorphosys</h2>
+            <p>Complete o formulário abaixo para receber sua máquina de fabricação de perfumes pessoal.</p>
+            <p>Um consultor entrará em contato para finalizar seu pedido e discutir opções personalizadas.</p>
+            <form id="purchaseForm">
+                <div class="form-group">
+                    <label for="fullname">Nome Completo</label>
+                    <input type="text" id="fullname" name="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="interest">Interesse Principal</label>
+                    <select id="interest" name="interest" required>
+                        <option value="">Selecione...</option>
+                        <option value="machine">Máquina Completa</option>
+                        <option value="starter">Kit Iniciante</option>
+                        <option value="refill">Refis</option>
+                        <option value="corporate">Presente Corporativo</option>
+                    </select>
+                </div>
+                <button type="submit" class="cta-button gold">Solicitar Contato</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Modal functionality
+        const buyButtons = document.querySelectorAll('.cta-button.gold:not([type="submit"])');
+        const modal = document.getElementById('purchaseModal');
+        const closeButton = document.querySelector('.close');
+        
+        buyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                modal.style.display = "block";
+                document.body.style.overflow = "hidden";
+            });
+        });
+        
+        closeButton.addEventListener('click', () => {
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        });
+        
+        // Form submissions
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Obrigado por sua mensagem. Nossa equipe de concierge entrará em contato em breve.');
+            e.target.reset();
+        });
+        
+        document.getElementById('purchaseForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Solicitação enviada com sucesso! Um consultor exclusivo entrará em contato em até 24 horas.');
+            modal.style.display = "none";
+            document.body.style.overflow = "auto";
+            e.target.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+         // [Manter todos os scripts anteriores]
+        
+        // Adicionar destaque ao preço quando o botão for hover
+        const priceTags = document.querySelectorAll('.price-amount');
+        priceTags.forEach(price => {
+            price.addEventListener('mouseover', () => {
+                price.style.transform = 'scale(1.05)';
+                price.style.transition = 'transform 0.3s ease';
+            });
+            price.addEventListener('mouseout', () => {
+                price.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
